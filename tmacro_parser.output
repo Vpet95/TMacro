@@ -1,0 +1,56 @@
+Terminals unused in grammar
+
+   EOL
+
+
+Grammar
+
+    0 $accept: line "end of file"
+
+    1 line: ABC
+
+
+Terminals, with rules where they appear
+
+"end of file" (0) 0
+error (256)
+EOL (258)
+ABC (259) 1
+
+
+Nonterminals, with rules where they appear
+
+$accept (5)
+    on left: 0
+line (6)
+    on left: 1, on right: 0
+
+
+State 0
+
+    0 $accept: . line "end of file"
+
+    ABC  shift, and go to state 1
+
+    line  go to state 2
+
+
+State 1
+
+    1 line: ABC .
+
+    $default  reduce using rule 1 (line)
+
+
+State 2
+
+    0 $accept: line . "end of file"
+
+    "end of file"  shift, and go to state 3
+
+
+State 3
+
+    0 $accept: line "end of file" .
+
+    $default  accept
