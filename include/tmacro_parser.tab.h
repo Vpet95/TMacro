@@ -56,7 +56,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 15 "tmacro_parser.y" /* yacc.c:1909  */
+#line 18 "tmacro_parser.y" /* yacc.c:1909  */
 
   char *s; 
   double d;

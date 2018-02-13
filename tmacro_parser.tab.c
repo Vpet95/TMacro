@@ -68,12 +68,15 @@
 #include <string.h>
 #include <stdio.h>
 #include "tmacro_lexer.lex.c"
+#include "include/vector.h"
+#include "include/util.h"
+#include "include/tmacro_core.h"
 
 int yylex();
 void yyerror(const char *s);
 
 
-#line 77 "tmacro_parser.tab.c" /* yacc.c:339  */
+#line 80 "tmacro_parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -119,14 +122,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 15 "tmacro_parser.y" /* yacc.c:355  */
+#line 18 "tmacro_parser.y" /* yacc.c:355  */
 
   char *s; 
   double d;
   long long i;
   
 
-#line 130 "tmacro_parser.tab.c" /* yacc.c:355  */
+#line 133 "tmacro_parser.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -157,7 +160,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 161 "tmacro_parser.tab.c" /* yacc.c:358  */
+#line 164 "tmacro_parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -456,7 +459,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    31,    31
+       0,    34,    34
 };
 #endif
 
@@ -1315,13 +1318,15 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 31 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Found ABC\n"); }
-#line 1321 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 34 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    printf("Found abc\n");
+  }
+#line 1326 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1325 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1330 "tmacro_parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1556,7 +1561,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 34 "tmacro_parser.y" /* yacc.c:1906  */
+#line 39 "tmacro_parser.y" /* yacc.c:1906  */
 
 
 extern int yyparse();
@@ -1569,11 +1574,16 @@ int main(int argc, char **argv) {
 
   long fsize = 0;
 
+  VECTOR *lines; 
+  unsigned int n_lines;
+  unsigned int l_idx = 0;
+
   if(argc > 1)
     infile = argv[1];
-
-  /* for testing only */
-  printf("We are here!\n");
+  else {
+    printf("TMacro Err: missing input file; stopping.\n");
+    exit(1);
+  }
   
   fp = fopen(infile, "r");
   if(fp) {
@@ -1589,19 +1599,30 @@ int main(int argc, char **argv) {
   } else {
     printf("Unable to open file %s\n", infile);
   }
+
+  /* for testing purposes */
+  lines = tokenize(input_data, '\n');
+  n_lines = vector_size(lines);
 	
-	YY_BUFFER_STATE buffer;
-	
-	buffer = yy_scan_string(input_data);
-	
-	yyparse();
-	yy_delete_buffer(buffer);
+  for(; l_idx < n_lines; ++l_idx) {
+    YY_BUFFER_STATE buffer;
+    char *line = vector_get(lines, l_idx);
+
+    set_current_script_line_text(line);
+    set_current_script_line_number(l_idx + 1);
+    buffer = yy_scan_string(line);
+    
+    yyparse();
+    yy_delete_buffer(buffer);
+  }
 		
 	return 0;
 }
 
 void yyerror(const char *s) { 
-	printf("Err: syntax error on line %d\n", yylineno);
+	printf("Err: syntax error on line %d: %s\n",
+         get_current_script_line_number(), 
+         get_current_script_line_text());
 
   return;
 } 
