@@ -167,7 +167,7 @@ Deletes n characters or tokens from the internal string buffer, where n is the v
 > "Hello, my universe." 
 
 #### GET
-Reads the current character or string, and returns it. Can take an optional integer parameter which denotes how many characters to read, or an optional string-literal or character-literal parameter, which denotes on which character to stop reading. If the first parameter is a character or string-literal, another parameter may be specified to determine the index of the preceding character or string in the buffer. 
+Reads the current character or string, and returns it. Can take an optional integer parameter which denotes how many characters to read. A secondary parameter may be given to delimit how to tokenize the string; if it is supplied, the integer parameter denotes how many tokens to read instead. 
 
 If there are not enough characters after the cursor position in the buffer to read the number of characters indicated by the parameter, GET will read as many as it can. Unlike INSERT or UPDATE, GET does not move the cursor forward. 
 
@@ -175,8 +175,8 @@ If there are not enough characters after the cursor position in the buffer to re
 
     GET[5]      // returns "Hello" 
     GET         // returns 'H' 
-    GET[' ']    // returns "Hello"
-    GET[' ', 3] // returns "Hello world, and"
+    GET[1, ' '] // returns "Hello"
+    GET[3, ' '] // returns "Hello world, and"
 
 #### SPLIT
 Splits the current line into two at the current cursor position, moving the second half of the line to the next line. 

@@ -1,56 +1,813 @@
 Terminals unused in grammar
 
    EOL
+   DEC_TOK
+   AND_TOK
+   OR_TOK
 
 
 Grammar
 
     0 $accept: line "end of file"
 
-    1 line: ABC
+    1 line: %empty
+    2     | open_rule
+    3     | close_rule
+    4     | write_rule
+    5     | move_rule
+    6     | insert_rule
+    7     | delete_rule
+    8     | update_rule
+    9     | get_rule
+   10     | BOF_TOK
+   11     | EOF_TOK
+   12     | BOL_TOK
+   13     | EOL_TOK
+   14     | FL_TOK
+   15     | LL_TOK
+   16     | SPLIT_TOK
+
+   17 open_rule: OPEN_TOK '[' STR_LIT ']'
+
+   18 close_rule: CLOSE_TOK
+
+   19 write_rule: WRITE_TOK
+   20           | WRITE_TOK '[' STR_LIT ']'
+
+   21 move_rule: lr_rule
+   22          | ud_rule
+
+   23 lr_rule: MOVE_LR_TOK '[' INT_TOK ']'
+   24        | MOVE_LR_TOK '[' condition_list ']'
+   25        | MOVE_LR_TOK '[' INT_TOK ',' CHAR_LIT ']'
+   26        | MOVE_LR_TOK '[' condition_list ',' CHAR_LIT ']'
+
+   27 ud_rule: MOVE_UD_TOK '[' INT_TOK ']'
+   28        | MOVE_UD_TOK '[' condition_list ']'
+
+   29 condition_list: PLACEHOLDER
+
+   30 insert_rule: INSERT_TOK '[' CHAR_LIT ']'
+   31            | INSERT_TOK '[' STR_LIT ']'
+   32            | INSERT_TOK '[' CHAR_LIT ',' INT_TOK ']'
+   33            | INSERT_TOK '[' STR_LIT ',' INT_TOK ']'
+
+   34 update_rule: UPDATE_TOK '[' CHAR_LIT ']'
+   35            | UPDATE_TOK '[' STR_LIT ']'
+   36            | UPDATE_TOK '[' CHAR_LIT ',' INT_TOK ']'
+   37            | UPDATE_TOK '[' STR_LIT ',' INT_TOK ']'
+
+   38 delete_rule: DELETE_TOK '[' INT_TOK ']'
+   39            | DELETE_TOK '[' INT_TOK ',' CHAR_LIT ']'
+
+   40 get_rule: GET_TOK
+   41         | GET_TOK '[' INT_TOK ']'
+   42         | GET_TOK '[' INT_TOK ',' CHAR_LIT ']'
 
 
 Terminals, with rules where they appear
 
 "end of file" (0) 0
+',' (44) 25 26 32 33 36 37 39 42
+'[' (91) 17 20 23 24 25 26 27 28 30 31 32 33 34 35 36 37 38 39 41 42
+']' (93) 17 20 23 24 25 26 27 28 30 31 32 33 34 35 36 37 38 39 41 42
 error (256)
 EOL (258)
-ABC (259) 1
+PLACEHOLDER (259) 29
+OPEN_TOK (260) 17
+CLOSE_TOK (261) 18
+WRITE_TOK (262) 19 20
+MOVE_LR_TOK (263) 23 24 25 26
+MOVE_UD_TOK (264) 27 28
+INSERT_TOK (265) 30 31 32 33
+UPDATE_TOK (266) 34 35 36 37
+DELETE_TOK (267) 38 39
+GET_TOK (268) 40 41 42
+SPLIT_TOK (269) 16
+STR_LIT (270) 17 20 31 33 35 37
+CHAR_LIT (271) 25 26 30 32 34 36 39 42
+INT_TOK (272) 23 25 27 32 33 36 37 38 39 41 42
+DEC_TOK (273)
+AND_TOK (274)
+OR_TOK (275)
+BOL_TOK (276) 12
+EOL_TOK (277) 13
+FL_TOK (278) 14
+LL_TOK (279) 15
+BOF_TOK (280) 10
+EOF_TOK (281) 11
 
 
 Nonterminals, with rules where they appear
 
-$accept (5)
+$accept (30)
     on left: 0
-line (6)
-    on left: 1, on right: 0
+line (31)
+    on left: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16, on right: 0
+open_rule (32)
+    on left: 17, on right: 2
+close_rule (33)
+    on left: 18, on right: 3
+write_rule (34)
+    on left: 19 20, on right: 4
+move_rule (35)
+    on left: 21 22, on right: 5
+lr_rule (36)
+    on left: 23 24 25 26, on right: 21
+ud_rule (37)
+    on left: 27 28, on right: 22
+condition_list (38)
+    on left: 29, on right: 24 26 28
+insert_rule (39)
+    on left: 30 31 32 33, on right: 6
+update_rule (40)
+    on left: 34 35 36 37, on right: 8
+delete_rule (41)
+    on left: 38 39, on right: 7
+get_rule (42)
+    on left: 40 41 42, on right: 9
 
 
 State 0
 
     0 $accept: . line "end of file"
 
-    ABC  shift, and go to state 1
+    OPEN_TOK     shift, and go to state 1
+    CLOSE_TOK    shift, and go to state 2
+    WRITE_TOK    shift, and go to state 3
+    MOVE_LR_TOK  shift, and go to state 4
+    MOVE_UD_TOK  shift, and go to state 5
+    INSERT_TOK   shift, and go to state 6
+    UPDATE_TOK   shift, and go to state 7
+    DELETE_TOK   shift, and go to state 8
+    GET_TOK      shift, and go to state 9
+    SPLIT_TOK    shift, and go to state 10
+    BOL_TOK      shift, and go to state 11
+    EOL_TOK      shift, and go to state 12
+    FL_TOK       shift, and go to state 13
+    LL_TOK       shift, and go to state 14
+    BOF_TOK      shift, and go to state 15
+    EOF_TOK      shift, and go to state 16
 
-    line  go to state 2
+    $default  reduce using rule 1 (line)
+
+    line         go to state 17
+    open_rule    go to state 18
+    close_rule   go to state 19
+    write_rule   go to state 20
+    move_rule    go to state 21
+    lr_rule      go to state 22
+    ud_rule      go to state 23
+    insert_rule  go to state 24
+    update_rule  go to state 25
+    delete_rule  go to state 26
+    get_rule     go to state 27
 
 
 State 1
 
-    1 line: ABC .
+   17 open_rule: OPEN_TOK . '[' STR_LIT ']'
 
-    $default  reduce using rule 1 (line)
+    '['  shift, and go to state 28
 
 
 State 2
 
-    0 $accept: line . "end of file"
+   18 close_rule: CLOSE_TOK .
 
-    "end of file"  shift, and go to state 3
+    $default  reduce using rule 18 (close_rule)
 
 
 State 3
 
+   19 write_rule: WRITE_TOK .
+   20           | WRITE_TOK . '[' STR_LIT ']'
+
+    '['  shift, and go to state 29
+
+    $default  reduce using rule 19 (write_rule)
+
+
+State 4
+
+   23 lr_rule: MOVE_LR_TOK . '[' INT_TOK ']'
+   24        | MOVE_LR_TOK . '[' condition_list ']'
+   25        | MOVE_LR_TOK . '[' INT_TOK ',' CHAR_LIT ']'
+   26        | MOVE_LR_TOK . '[' condition_list ',' CHAR_LIT ']'
+
+    '['  shift, and go to state 30
+
+
+State 5
+
+   27 ud_rule: MOVE_UD_TOK . '[' INT_TOK ']'
+   28        | MOVE_UD_TOK . '[' condition_list ']'
+
+    '['  shift, and go to state 31
+
+
+State 6
+
+   30 insert_rule: INSERT_TOK . '[' CHAR_LIT ']'
+   31            | INSERT_TOK . '[' STR_LIT ']'
+   32            | INSERT_TOK . '[' CHAR_LIT ',' INT_TOK ']'
+   33            | INSERT_TOK . '[' STR_LIT ',' INT_TOK ']'
+
+    '['  shift, and go to state 32
+
+
+State 7
+
+   34 update_rule: UPDATE_TOK . '[' CHAR_LIT ']'
+   35            | UPDATE_TOK . '[' STR_LIT ']'
+   36            | UPDATE_TOK . '[' CHAR_LIT ',' INT_TOK ']'
+   37            | UPDATE_TOK . '[' STR_LIT ',' INT_TOK ']'
+
+    '['  shift, and go to state 33
+
+
+State 8
+
+   38 delete_rule: DELETE_TOK . '[' INT_TOK ']'
+   39            | DELETE_TOK . '[' INT_TOK ',' CHAR_LIT ']'
+
+    '['  shift, and go to state 34
+
+
+State 9
+
+   40 get_rule: GET_TOK .
+   41         | GET_TOK . '[' INT_TOK ']'
+   42         | GET_TOK . '[' INT_TOK ',' CHAR_LIT ']'
+
+    '['  shift, and go to state 35
+
+    $default  reduce using rule 40 (get_rule)
+
+
+State 10
+
+   16 line: SPLIT_TOK .
+
+    $default  reduce using rule 16 (line)
+
+
+State 11
+
+   12 line: BOL_TOK .
+
+    $default  reduce using rule 12 (line)
+
+
+State 12
+
+   13 line: EOL_TOK .
+
+    $default  reduce using rule 13 (line)
+
+
+State 13
+
+   14 line: FL_TOK .
+
+    $default  reduce using rule 14 (line)
+
+
+State 14
+
+   15 line: LL_TOK .
+
+    $default  reduce using rule 15 (line)
+
+
+State 15
+
+   10 line: BOF_TOK .
+
+    $default  reduce using rule 10 (line)
+
+
+State 16
+
+   11 line: EOF_TOK .
+
+    $default  reduce using rule 11 (line)
+
+
+State 17
+
+    0 $accept: line . "end of file"
+
+    "end of file"  shift, and go to state 36
+
+
+State 18
+
+    2 line: open_rule .
+
+    $default  reduce using rule 2 (line)
+
+
+State 19
+
+    3 line: close_rule .
+
+    $default  reduce using rule 3 (line)
+
+
+State 20
+
+    4 line: write_rule .
+
+    $default  reduce using rule 4 (line)
+
+
+State 21
+
+    5 line: move_rule .
+
+    $default  reduce using rule 5 (line)
+
+
+State 22
+
+   21 move_rule: lr_rule .
+
+    $default  reduce using rule 21 (move_rule)
+
+
+State 23
+
+   22 move_rule: ud_rule .
+
+    $default  reduce using rule 22 (move_rule)
+
+
+State 24
+
+    6 line: insert_rule .
+
+    $default  reduce using rule 6 (line)
+
+
+State 25
+
+    8 line: update_rule .
+
+    $default  reduce using rule 8 (line)
+
+
+State 26
+
+    7 line: delete_rule .
+
+    $default  reduce using rule 7 (line)
+
+
+State 27
+
+    9 line: get_rule .
+
+    $default  reduce using rule 9 (line)
+
+
+State 28
+
+   17 open_rule: OPEN_TOK '[' . STR_LIT ']'
+
+    STR_LIT  shift, and go to state 37
+
+
+State 29
+
+   20 write_rule: WRITE_TOK '[' . STR_LIT ']'
+
+    STR_LIT  shift, and go to state 38
+
+
+State 30
+
+   23 lr_rule: MOVE_LR_TOK '[' . INT_TOK ']'
+   24        | MOVE_LR_TOK '[' . condition_list ']'
+   25        | MOVE_LR_TOK '[' . INT_TOK ',' CHAR_LIT ']'
+   26        | MOVE_LR_TOK '[' . condition_list ',' CHAR_LIT ']'
+
+    PLACEHOLDER  shift, and go to state 39
+    INT_TOK      shift, and go to state 40
+
+    condition_list  go to state 41
+
+
+State 31
+
+   27 ud_rule: MOVE_UD_TOK '[' . INT_TOK ']'
+   28        | MOVE_UD_TOK '[' . condition_list ']'
+
+    PLACEHOLDER  shift, and go to state 39
+    INT_TOK      shift, and go to state 42
+
+    condition_list  go to state 43
+
+
+State 32
+
+   30 insert_rule: INSERT_TOK '[' . CHAR_LIT ']'
+   31            | INSERT_TOK '[' . STR_LIT ']'
+   32            | INSERT_TOK '[' . CHAR_LIT ',' INT_TOK ']'
+   33            | INSERT_TOK '[' . STR_LIT ',' INT_TOK ']'
+
+    STR_LIT   shift, and go to state 44
+    CHAR_LIT  shift, and go to state 45
+
+
+State 33
+
+   34 update_rule: UPDATE_TOK '[' . CHAR_LIT ']'
+   35            | UPDATE_TOK '[' . STR_LIT ']'
+   36            | UPDATE_TOK '[' . CHAR_LIT ',' INT_TOK ']'
+   37            | UPDATE_TOK '[' . STR_LIT ',' INT_TOK ']'
+
+    STR_LIT   shift, and go to state 46
+    CHAR_LIT  shift, and go to state 47
+
+
+State 34
+
+   38 delete_rule: DELETE_TOK '[' . INT_TOK ']'
+   39            | DELETE_TOK '[' . INT_TOK ',' CHAR_LIT ']'
+
+    INT_TOK  shift, and go to state 48
+
+
+State 35
+
+   41 get_rule: GET_TOK '[' . INT_TOK ']'
+   42         | GET_TOK '[' . INT_TOK ',' CHAR_LIT ']'
+
+    INT_TOK  shift, and go to state 49
+
+
+State 36
+
     0 $accept: line "end of file" .
 
     $default  accept
+
+
+State 37
+
+   17 open_rule: OPEN_TOK '[' STR_LIT . ']'
+
+    ']'  shift, and go to state 50
+
+
+State 38
+
+   20 write_rule: WRITE_TOK '[' STR_LIT . ']'
+
+    ']'  shift, and go to state 51
+
+
+State 39
+
+   29 condition_list: PLACEHOLDER .
+
+    $default  reduce using rule 29 (condition_list)
+
+
+State 40
+
+   23 lr_rule: MOVE_LR_TOK '[' INT_TOK . ']'
+   25        | MOVE_LR_TOK '[' INT_TOK . ',' CHAR_LIT ']'
+
+    ']'  shift, and go to state 52
+    ','  shift, and go to state 53
+
+
+State 41
+
+   24 lr_rule: MOVE_LR_TOK '[' condition_list . ']'
+   26        | MOVE_LR_TOK '[' condition_list . ',' CHAR_LIT ']'
+
+    ']'  shift, and go to state 54
+    ','  shift, and go to state 55
+
+
+State 42
+
+   27 ud_rule: MOVE_UD_TOK '[' INT_TOK . ']'
+
+    ']'  shift, and go to state 56
+
+
+State 43
+
+   28 ud_rule: MOVE_UD_TOK '[' condition_list . ']'
+
+    ']'  shift, and go to state 57
+
+
+State 44
+
+   31 insert_rule: INSERT_TOK '[' STR_LIT . ']'
+   33            | INSERT_TOK '[' STR_LIT . ',' INT_TOK ']'
+
+    ']'  shift, and go to state 58
+    ','  shift, and go to state 59
+
+
+State 45
+
+   30 insert_rule: INSERT_TOK '[' CHAR_LIT . ']'
+   32            | INSERT_TOK '[' CHAR_LIT . ',' INT_TOK ']'
+
+    ']'  shift, and go to state 60
+    ','  shift, and go to state 61
+
+
+State 46
+
+   35 update_rule: UPDATE_TOK '[' STR_LIT . ']'
+   37            | UPDATE_TOK '[' STR_LIT . ',' INT_TOK ']'
+
+    ']'  shift, and go to state 62
+    ','  shift, and go to state 63
+
+
+State 47
+
+   34 update_rule: UPDATE_TOK '[' CHAR_LIT . ']'
+   36            | UPDATE_TOK '[' CHAR_LIT . ',' INT_TOK ']'
+
+    ']'  shift, and go to state 64
+    ','  shift, and go to state 65
+
+
+State 48
+
+   38 delete_rule: DELETE_TOK '[' INT_TOK . ']'
+   39            | DELETE_TOK '[' INT_TOK . ',' CHAR_LIT ']'
+
+    ']'  shift, and go to state 66
+    ','  shift, and go to state 67
+
+
+State 49
+
+   41 get_rule: GET_TOK '[' INT_TOK . ']'
+   42         | GET_TOK '[' INT_TOK . ',' CHAR_LIT ']'
+
+    ']'  shift, and go to state 68
+    ','  shift, and go to state 69
+
+
+State 50
+
+   17 open_rule: OPEN_TOK '[' STR_LIT ']' .
+
+    $default  reduce using rule 17 (open_rule)
+
+
+State 51
+
+   20 write_rule: WRITE_TOK '[' STR_LIT ']' .
+
+    $default  reduce using rule 20 (write_rule)
+
+
+State 52
+
+   23 lr_rule: MOVE_LR_TOK '[' INT_TOK ']' .
+
+    $default  reduce using rule 23 (lr_rule)
+
+
+State 53
+
+   25 lr_rule: MOVE_LR_TOK '[' INT_TOK ',' . CHAR_LIT ']'
+
+    CHAR_LIT  shift, and go to state 70
+
+
+State 54
+
+   24 lr_rule: MOVE_LR_TOK '[' condition_list ']' .
+
+    $default  reduce using rule 24 (lr_rule)
+
+
+State 55
+
+   26 lr_rule: MOVE_LR_TOK '[' condition_list ',' . CHAR_LIT ']'
+
+    CHAR_LIT  shift, and go to state 71
+
+
+State 56
+
+   27 ud_rule: MOVE_UD_TOK '[' INT_TOK ']' .
+
+    $default  reduce using rule 27 (ud_rule)
+
+
+State 57
+
+   28 ud_rule: MOVE_UD_TOK '[' condition_list ']' .
+
+    $default  reduce using rule 28 (ud_rule)
+
+
+State 58
+
+   31 insert_rule: INSERT_TOK '[' STR_LIT ']' .
+
+    $default  reduce using rule 31 (insert_rule)
+
+
+State 59
+
+   33 insert_rule: INSERT_TOK '[' STR_LIT ',' . INT_TOK ']'
+
+    INT_TOK  shift, and go to state 72
+
+
+State 60
+
+   30 insert_rule: INSERT_TOK '[' CHAR_LIT ']' .
+
+    $default  reduce using rule 30 (insert_rule)
+
+
+State 61
+
+   32 insert_rule: INSERT_TOK '[' CHAR_LIT ',' . INT_TOK ']'
+
+    INT_TOK  shift, and go to state 73
+
+
+State 62
+
+   35 update_rule: UPDATE_TOK '[' STR_LIT ']' .
+
+    $default  reduce using rule 35 (update_rule)
+
+
+State 63
+
+   37 update_rule: UPDATE_TOK '[' STR_LIT ',' . INT_TOK ']'
+
+    INT_TOK  shift, and go to state 74
+
+
+State 64
+
+   34 update_rule: UPDATE_TOK '[' CHAR_LIT ']' .
+
+    $default  reduce using rule 34 (update_rule)
+
+
+State 65
+
+   36 update_rule: UPDATE_TOK '[' CHAR_LIT ',' . INT_TOK ']'
+
+    INT_TOK  shift, and go to state 75
+
+
+State 66
+
+   38 delete_rule: DELETE_TOK '[' INT_TOK ']' .
+
+    $default  reduce using rule 38 (delete_rule)
+
+
+State 67
+
+   39 delete_rule: DELETE_TOK '[' INT_TOK ',' . CHAR_LIT ']'
+
+    CHAR_LIT  shift, and go to state 76
+
+
+State 68
+
+   41 get_rule: GET_TOK '[' INT_TOK ']' .
+
+    $default  reduce using rule 41 (get_rule)
+
+
+State 69
+
+   42 get_rule: GET_TOK '[' INT_TOK ',' . CHAR_LIT ']'
+
+    CHAR_LIT  shift, and go to state 77
+
+
+State 70
+
+   25 lr_rule: MOVE_LR_TOK '[' INT_TOK ',' CHAR_LIT . ']'
+
+    ']'  shift, and go to state 78
+
+
+State 71
+
+   26 lr_rule: MOVE_LR_TOK '[' condition_list ',' CHAR_LIT . ']'
+
+    ']'  shift, and go to state 79
+
+
+State 72
+
+   33 insert_rule: INSERT_TOK '[' STR_LIT ',' INT_TOK . ']'
+
+    ']'  shift, and go to state 80
+
+
+State 73
+
+   32 insert_rule: INSERT_TOK '[' CHAR_LIT ',' INT_TOK . ']'
+
+    ']'  shift, and go to state 81
+
+
+State 74
+
+   37 update_rule: UPDATE_TOK '[' STR_LIT ',' INT_TOK . ']'
+
+    ']'  shift, and go to state 82
+
+
+State 75
+
+   36 update_rule: UPDATE_TOK '[' CHAR_LIT ',' INT_TOK . ']'
+
+    ']'  shift, and go to state 83
+
+
+State 76
+
+   39 delete_rule: DELETE_TOK '[' INT_TOK ',' CHAR_LIT . ']'
+
+    ']'  shift, and go to state 84
+
+
+State 77
+
+   42 get_rule: GET_TOK '[' INT_TOK ',' CHAR_LIT . ']'
+
+    ']'  shift, and go to state 85
+
+
+State 78
+
+   25 lr_rule: MOVE_LR_TOK '[' INT_TOK ',' CHAR_LIT ']' .
+
+    $default  reduce using rule 25 (lr_rule)
+
+
+State 79
+
+   26 lr_rule: MOVE_LR_TOK '[' condition_list ',' CHAR_LIT ']' .
+
+    $default  reduce using rule 26 (lr_rule)
+
+
+State 80
+
+   33 insert_rule: INSERT_TOK '[' STR_LIT ',' INT_TOK ']' .
+
+    $default  reduce using rule 33 (insert_rule)
+
+
+State 81
+
+   32 insert_rule: INSERT_TOK '[' CHAR_LIT ',' INT_TOK ']' .
+
+    $default  reduce using rule 32 (insert_rule)
+
+
+State 82
+
+   37 update_rule: UPDATE_TOK '[' STR_LIT ',' INT_TOK ']' .
+
+    $default  reduce using rule 37 (update_rule)
+
+
+State 83
+
+   36 update_rule: UPDATE_TOK '[' CHAR_LIT ',' INT_TOK ']' .
+
+    $default  reduce using rule 36 (update_rule)
+
+
+State 84
+
+   39 delete_rule: DELETE_TOK '[' INT_TOK ',' CHAR_LIT ']' .
+
+    $default  reduce using rule 39 (delete_rule)
+
+
+State 85
+
+   42 get_rule: GET_TOK '[' INT_TOK ',' CHAR_LIT ']' .
+
+    $default  reduce using rule 42 (get_rule)

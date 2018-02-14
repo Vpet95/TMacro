@@ -69,6 +69,7 @@
 #include <stdio.h>
 #include "tmacro_lexer.lex.c"
 #include "include/vector.h"
+#include "include/hash_map.h"
 #include "include/util.h"
 #include "include/tmacro_core.h"
 
@@ -76,7 +77,7 @@ int yylex();
 void yyerror(const char *s);
 
 
-#line 80 "tmacro_parser.tab.c" /* yacc.c:339  */
+#line 81 "tmacro_parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -113,7 +114,29 @@ extern int yydebug;
   {
     END = 0,
     EOL = 258,
-    ABC = 259
+    PLACEHOLDER = 259,
+    OPEN_TOK = 260,
+    CLOSE_TOK = 261,
+    WRITE_TOK = 262,
+    MOVE_LR_TOK = 263,
+    MOVE_UD_TOK = 264,
+    INSERT_TOK = 265,
+    UPDATE_TOK = 266,
+    DELETE_TOK = 267,
+    GET_TOK = 268,
+    SPLIT_TOK = 269,
+    STR_LIT = 270,
+    CHAR_LIT = 271,
+    INT_TOK = 272,
+    DEC_TOK = 273,
+    AND_TOK = 274,
+    OR_TOK = 275,
+    BOL_TOK = 276,
+    EOL_TOK = 277,
+    FL_TOK = 278,
+    LL_TOK = 279,
+    BOF_TOK = 280,
+    EOF_TOK = 281
   };
 #endif
 
@@ -122,14 +145,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 18 "tmacro_parser.y" /* yacc.c:355  */
+#line 19 "tmacro_parser.y" /* yacc.c:355  */
 
   char *s; 
   double d;
   long long i;
-  
+  char c;
 
-#line 133 "tmacro_parser.tab.c" /* yacc.c:355  */
+#line 156 "tmacro_parser.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -160,7 +183,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 164 "tmacro_parser.tab.c" /* yacc.c:358  */
+#line 187 "tmacro_parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -402,23 +425,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  3
+#define YYFINAL  36
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   1
+#define YYLAST   82
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  5
+#define YYNTOKENS  30
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  2
+#define YYNNTS  13
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  2
+#define YYNRULES  43
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  4
+#define YYNSTATES  86
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   259
+#define YYMAXUTOK   281
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -431,6 +454,12 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    29,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    27,     2,    28,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -446,20 +475,21 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3,     4
+       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
+      25,    26
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    34,    34
+       0,    51,    51,    52,    53,    54,    55,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    65,    66,    69,    75,
+      81,    85,    91,    92,    95,    99,   103,   107,   113,   117,
+     123,   126,   129,   132,   135,   140,   143,   146,   149,   154,
+     157,   162,   165,   168
 };
 #endif
 
@@ -468,8 +498,14 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "\"end of file\"", "error", "$undefined", "EOL", "ABC", "$accept",
-  "line", YY_NULLPTR
+  "\"end of file\"", "error", "$undefined", "EOL", "PLACEHOLDER",
+  "OPEN_TOK", "CLOSE_TOK", "WRITE_TOK", "MOVE_LR_TOK", "MOVE_UD_TOK",
+  "INSERT_TOK", "UPDATE_TOK", "DELETE_TOK", "GET_TOK", "SPLIT_TOK",
+  "STR_LIT", "CHAR_LIT", "INT_TOK", "DEC_TOK", "AND_TOK", "OR_TOK",
+  "BOL_TOK", "EOL_TOK", "FL_TOK", "LL_TOK", "BOF_TOK", "EOF_TOK", "'['",
+  "']'", "','", "$accept", "line", "open_rule", "close_rule", "write_rule",
+  "move_rule", "lr_rule", "ud_rule", "condition_list", "insert_rule",
+  "update_rule", "delete_rule", "get_rule", YY_NULLPTR
 };
 #endif
 
@@ -478,14 +514,16 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259
+       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+     275,   276,   277,   278,   279,   280,   281,    91,    93,    44
 };
 # endif
 
-#define YYPACT_NINF -5
+#define YYPACT_NINF -6
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-5)))
+  (!!((Yystate) == (-6)))
 
 #define YYTABLE_NINF -1
 
@@ -496,7 +534,15 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -4,    -5,     1,    -5
+      -5,    17,    -6,    18,    19,    20,    21,    22,    23,    24,
+      -6,    -6,    -6,    -6,    -6,    -6,    -6,    25,    -6,    -6,
+      -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6,    37,    38,
+       6,     7,    -3,    -1,     5,    39,    -6,    26,    27,    -6,
+      -2,     0,    29,    30,     2,     4,     8,    10,    12,    14,
+      -6,    -6,    -6,    43,    -6,    44,    -6,    -6,    -6,    45,
+      -6,    46,    -6,    47,    -6,    48,    -6,    50,    -6,    51,
+      33,    40,    41,    42,    49,    52,    53,    54,    -6,    -6,
+      -6,    -6,    -6,    -6,    -6,    -6
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -504,19 +550,29 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     2,     0,     1
+       2,     0,    19,    20,     0,     0,     0,     0,     0,    41,
+      17,    13,    14,    15,    16,    11,    12,     0,     3,     4,
+       5,     6,    22,    23,     7,     9,     8,    10,     0,     0,
+       0,     0,     0,     0,     0,     0,     1,     0,     0,    30,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      18,    21,    24,     0,    25,     0,    28,    29,    32,     0,
+      31,     0,    36,     0,    35,     0,    39,     0,    42,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    26,    27,
+      34,    33,    38,    37,    40,    43
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5
+      -6,    -6,    -6,    -6,    -6,    -6,    -6,    -6,     3,    -6,
+      -6,    -6,    -6
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2
+      -1,    17,    18,    19,    20,    21,    22,    23,    41,    24,
+      25,    26,    27
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -524,31 +580,63 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     3
+       1,     2,     3,     4,     5,     6,     7,     8,     9,    10,
+      39,    39,    44,    45,    46,    47,    11,    12,    13,    14,
+      15,    16,    48,    40,    42,    36,    52,    53,    54,    55,
+      58,    59,    60,    61,    43,     0,    62,    63,    64,    65,
+      66,    67,    68,    69,    28,    29,    30,    31,    32,    33,
+      34,    35,    37,    38,    50,    51,    49,    56,    57,    70,
+      71,    78,    72,    73,    74,    75,    76,    77,    79,    80,
+      81,     0,     0,     0,     0,     0,     0,    82,     0,     0,
+      83,    84,    85
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       4,     0
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+       4,     4,    15,    16,    15,    16,    21,    22,    23,    24,
+      25,    26,    17,    17,    17,     0,    28,    29,    28,    29,
+      28,    29,    28,    29,    31,    -1,    28,    29,    28,    29,
+      28,    29,    28,    29,    27,    27,    27,    27,    27,    27,
+      27,    27,    15,    15,    28,    28,    17,    28,    28,    16,
+      16,    28,    17,    17,    17,    17,    16,    16,    28,    28,
+      28,    -1,    -1,    -1,    -1,    -1,    -1,    28,    -1,    -1,
+      28,    28,    28
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     4,     6,     0
+       0,     5,     6,     7,     8,     9,    10,    11,    12,    13,
+      14,    21,    22,    23,    24,    25,    26,    31,    32,    33,
+      34,    35,    36,    37,    39,    40,    41,    42,    27,    27,
+      27,    27,    27,    27,    27,    27,     0,    15,    15,     4,
+      17,    38,    17,    38,    15,    16,    15,    16,    17,    17,
+      28,    28,    28,    29,    28,    29,    28,    28,    28,    29,
+      28,    29,    28,    29,    28,    29,    28,    29,    28,    29,
+      16,    16,    17,    17,    17,    17,    16,    16,    28,    28,
+      28,    28,    28,    28,    28,    28
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     5,     6
+       0,    30,    31,    31,    31,    31,    31,    31,    31,    31,
+      31,    31,    31,    31,    31,    31,    31,    31,    32,    33,
+      34,    34,    35,    35,    36,    36,    36,    36,    37,    37,
+      38,    39,    39,    39,    39,    40,    40,    40,    40,    41,
+      41,    42,    42,    42
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1
+       0,     2,     0,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     4,     1,
+       1,     4,     1,     1,     4,     4,     6,     6,     4,     4,
+       1,     4,     4,     6,     6,     4,     4,     6,     6,     4,
+       6,     1,     4,     6
 };
 
 
@@ -1317,16 +1405,310 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
-#line 34 "tmacro_parser.y" /* yacc.c:1646  */
+        case 3:
+#line 52 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1412 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 53 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1418 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 54 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1424 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 55 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1430 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 56 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1436 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 57 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1442 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 9:
+#line 58 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1448 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 10:
+#line 59 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1454 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 11:
+#line 60 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Move to the beginning of file\n"); }
+#line 1460 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 12:
+#line 61 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Move to the end of file\n"); }
+#line 1466 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 13:
+#line 62 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Move to the beginning of line\n"); }
+#line 1472 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 14:
+#line 63 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Move to the end of line\n"); }
+#line 1478 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 64 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Move to the first line\n"); }
+#line 1484 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 65 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Move to the last line\n"); }
+#line 1490 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 66 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Split the current line into two, moving the second half to the next line\n"); }
+#line 1496 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 18:
+#line 69 "tmacro_parser.y" /* yacc.c:1646  */
     {
-    printf("Found abc\n");
+    /* open a file */
+    printf("Open %s\n", (yyvsp[-1].s));
   }
-#line 1326 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1505 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 19:
+#line 75 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    /* close the opened file */
+    printf("Closing opened file\n");
+  }
+#line 1514 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 20:
+#line 81 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      /* write to the opened file, or error out if none is opened */
+      printf("Writing to currently open file\n");
+  }
+#line 1523 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 85 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      /* write to the given file, error out if not possible */
+      printf("Writing to file %s\n", (yyvsp[-1].s));
+  }
+#line 1532 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 91 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1538 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 92 "tmacro_parser.y" /* yacc.c:1646  */
+    { }
+#line 1544 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 95 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    /* move cursor LEFT or RIGHT INT_TOK spaces */
+    printf("Moving cursor %c %lld time(s)\n", (yyvsp[-3].c), (yyvsp[-1].i));
+  }
+#line 1553 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 25:
+#line 99 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    /* move cursor until condition is met */
+    printf("Moving cursor %c until condition is met\n", (yyvsp[-3].c));
+  }
+#line 1562 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 103 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    /* move cursor left or right INT_TOK tokens delimited by CHAR_LIT */
+    printf("Moving cursor %c %lld token(s) delimited by %s\n", (yyvsp[-5].c), (yyvsp[-3].i), (yyvsp[-1].s));
+  }
+#line 1571 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 27:
+#line 107 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    /* move cursor left or right by token (delimited by CHAR_LIT) until condition is met */
+    printf("Moving cursor %c by token (delimited by %s) until condition is met\n", (yyvsp[-5].c), (yyvsp[-1].s));
+  }
+#line 1580 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 28:
+#line 113 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      /* move cursor up or down INT_TOK times */
+      printf("Moving cursor %c %lld time(s)\n", (yyvsp[-3].c), (yyvsp[-1].i));
+    }
+#line 1589 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 29:
+#line 117 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+    /* move cursor up or down until condition is met */
+    printf("Moving cursor %c until condition is met\n", (yyvsp[-3].c));
+  }
+#line 1598 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 30:
+#line 123 "tmacro_parser.y" /* yacc.c:1646  */
+    { printf("Found condition list placeholder\n"); }
+#line 1604 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 31:
+#line 126 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Insert singular character %s\n", (yyvsp[-1].s));
+  }
+#line 1612 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 129 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Insert string literal %s\n", (yyvsp[-1].s));
+  }
+#line 1620 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 33:
+#line 132 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Insert character %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
+  }
+#line 1628 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 34:
+#line 135 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Insert string %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
+  }
+#line 1636 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 35:
+#line 140 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Update singular character %s\n", (yyvsp[-1].s));
+  }
+#line 1644 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 36:
+#line 143 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Update string literal %s\n", (yyvsp[-1].s));
+  }
+#line 1652 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 37:
+#line 146 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Update character %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
+  }
+#line 1660 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 38:
+#line 149 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Update string %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
+  }
+#line 1668 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 39:
+#line 154 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Delete %lld character(s)\n", (yyvsp[-1].i));
+  }
+#line 1676 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 40:
+#line 157 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Delete %lld token(s) delimited by %s\n", (yyvsp[-3].i), (yyvsp[-1].s));
+  }
+#line 1684 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 41:
+#line 162 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Return a single character\n");
+  }
+#line 1692 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 42:
+#line 165 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Return %lld character(s)\n", (yyvsp[-1].i));
+  }
+#line 1700 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 43:
+#line 168 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      printf("Return %lld token(s) delimited by %s\n", (yyvsp[-3].i), (yyvsp[-1].s));
+  }
+#line 1708 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1330 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1712 "tmacro_parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1561,7 +1943,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 39 "tmacro_parser.y" /* yacc.c:1906  */
+#line 172 "tmacro_parser.y" /* yacc.c:1906  */
 
 
 extern int yyparse();
@@ -1620,7 +2002,7 @@ int main(int argc, char **argv) {
 }
 
 void yyerror(const char *s) { 
-	printf("Err: syntax error on line %d: %s\n",
+	printf("Err: syntax error on line %d: [%s]\n",
          get_current_script_line_number(), 
          get_current_script_line_text());
 
