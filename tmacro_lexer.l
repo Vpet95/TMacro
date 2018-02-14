@@ -38,6 +38,19 @@ UPDATE_CMD (?i:"update")
 DELETE_CMD (?i:"delete")
 GET_CMD    (?i:"get")
 SPLIT_CMD  (?i:"split")
+MOD_CMD    (?i:"mod")
+INCR_CMD   (?i:"incr")
+DECR_CMD   (?i:"decr")
+IF_CMD	   (?i:"if")
+ELSE_CMD   (?i:"else")
+SWITCH_CMD (?i:"switch")
+CASE_CMD   (?i:"case")
+DEFAULT_CMD (?i:"default")
+DO_CMD      (?i:"do")
+WHILE_CMD   (?i:"while")
+TIMES_CMD   (?i:"times")
+
+GENERIC_IDENTIFIER [a-zA-Z][a-zA-Z0-9_-]*
 
 MOVE_LR   [lrLR]
 MOVE_UD   [udUD]
@@ -54,7 +67,14 @@ PLACEHOLDER_STR "abc"
 
 "[" |
 "]"	|
-"," { return yytext[0]; }
+"," |
+"=" { return yytext[0]; }
+
+"+" |
+"-" |
+"*" |
+"/" |
+"^" { yylval.s = strdup(yytext); return MATH_OP; }
 
 {PLACEHOLDER_STR}   { return PLACEHOLDER; }
 
@@ -78,12 +98,25 @@ PLACEHOLDER_STR "abc"
 {DELETE_CMD} { return DELETE_TOK; }
 {GET_CMD}    { return GET_TOK; }
 {SPLIT_CMD}  { return SPLIT_TOK; }
+{MOD_CMD}    { return MOD_TOK; }
+{INCR_CMD}   { return INCR_TOK; }
+{DECR_CMD}   { return DECR_TOK; }
+{IF_CMD}	 { return IF_TOK; }
+{ELSE_CMD}   { return ELSE_TOK; }
+{SWITCH_CMD} { return SWITCH_TOK; }
+{CASE_CMD}   { return CASE_TOK; }
+{DEFAULT_CMD} { return DEFAULT_TOK; }
+{DO_CMD}      { return DO_TOK; }
+{WHILE_CMD}   { return WHILE_TOK; }
+{TIMES_CMD}   { return TIMES_TOK; }
 
 {MOVE_LR}   { yylval.c = yytext[0]; return MOVE_LR_TOK; }
 {MOVE_UD}   { yylval.c = yytext[0]; return MOVE_UD_TOK; }
 
 {AND_COND} { return AND_TOK; }
 {OR_COND}  { return OR_TOK; }
+
+{GENERIC_IDENTIFIER} { yylval.s = strdup(yytext); return ID; }
 
 \n | 
 " " { /* DO NOTHING */ }

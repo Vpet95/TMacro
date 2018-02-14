@@ -28,6 +28,10 @@ void yyerror(const char *s);
 %token PLACEHOLDER
 %token OPEN_TOK CLOSE_TOK WRITE_TOK MOVE_LR_TOK MOVE_UD_TOK
 %token INSERT_TOK UPDATE_TOK DELETE_TOK GET_TOK SPLIT_TOK
+%token INCR_TOK DECR_TOK IF_TOK ELSE_TOK SWITCH_TOK CASE_TOK DEFAULT_TOK
+%token DO_TOK WHILE_TOK TIMES_TOK
+%token MATH_OP MOD_TOK
+%token ID
 %token STR_LIT CHAR_LIT
 %token INT_TOK DEC_TOK
 %token AND_TOK OR_TOK
@@ -35,7 +39,11 @@ void yyerror(const char *s);
 
 %type<s> PLACEHOLDER
 %type<s> open_rule close_rule write_rule lr_rule ud_rule move_rule condition_list
-%type<s> insert_rule update_rule delete_rule get_rule 
+%type<s> insert_rule update_rule delete_rule get_rule mod_rule
+%type<s> MATH_OP MOD_TOK
+%type<s> INCR_TOK DECR_TOK IF_TOK ELSE_TOK SWITCH_TOK CASE_TOK DEFAULT_TOK
+%type<s> DO_TOK WHILE_TOK TIMES_TOK
+%type<s> ID
 %type<s> STR_LIT CHAR_LIT 
 %type<s> DEC_TOK
 %type<s> AND_TOK OR_TOK
@@ -167,6 +175,14 @@ get_rule:
   }
   | GET_TOK '[' INT_TOK ',' CHAR_LIT ']' {
       printf("Return %lld token(s) delimited by %s\n", $3, $5);
+  }
+
+mod_rule: 
+    MOD_TOK '[' INT_TOK ',' INT_TOK ']' {
+      printf("Calling modulus on %lld by %lld\n", $3, $5);
+  }
+  | MOD_TOK '[' DEC_TOK ',' INT_TOK ']' {
+      printf("Calling modulus on %s by %lld\n", $3, $5);
   }
 
 %%

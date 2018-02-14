@@ -58,18 +58,31 @@ extern int yydebug;
     DELETE_TOK = 267,
     GET_TOK = 268,
     SPLIT_TOK = 269,
-    STR_LIT = 270,
-    CHAR_LIT = 271,
-    INT_TOK = 272,
-    DEC_TOK = 273,
-    AND_TOK = 274,
-    OR_TOK = 275,
-    BOL_TOK = 276,
-    EOL_TOK = 277,
-    FL_TOK = 278,
-    LL_TOK = 279,
-    BOF_TOK = 280,
-    EOF_TOK = 281
+    INCR_TOK = 270,
+    DECR_TOK = 271,
+    IF_TOK = 272,
+    ELSE_TOK = 273,
+    SWITCH_TOK = 274,
+    CASE_TOK = 275,
+    DEFAULT_TOK = 276,
+    DO_TOK = 277,
+    WHILE_TOK = 278,
+    TIMES_TOK = 279,
+    MATH_OP = 280,
+    MOD_TOK = 281,
+    ID = 282,
+    STR_LIT = 283,
+    CHAR_LIT = 284,
+    INT_TOK = 285,
+    DEC_TOK = 286,
+    AND_TOK = 287,
+    OR_TOK = 288,
+    BOL_TOK = 289,
+    EOL_TOK = 290,
+    FL_TOK = 291,
+    LL_TOK = 292,
+    BOF_TOK = 293,
+    EOF_TOK = 294
   };
 #endif
 
@@ -85,7 +98,7 @@ union YYSTYPE
   long long i;
   char c;
 
-#line 89 "tmacro_parser.tab.h" /* yacc.c:1909  */
+#line 102 "tmacro_parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -1,9 +1,33 @@
+Nonterminals useless in grammar
+
+   mod_rule
+
+
 Terminals unused in grammar
 
    EOL
+   INCR_TOK
+   DECR_TOK
+   IF_TOK
+   ELSE_TOK
+   SWITCH_TOK
+   CASE_TOK
+   DEFAULT_TOK
+   DO_TOK
+   WHILE_TOK
+   TIMES_TOK
+   MATH_OP
+   MOD_TOK
+   ID
    DEC_TOK
    AND_TOK
    OR_TOK
+
+
+Rules useless in grammar
+
+   43 mod_rule: MOD_TOK '[' INT_TOK ',' INT_TOK ']'
+   44         | MOD_TOK '[' DEC_TOK ',' INT_TOK ']'
 
 
 Grammar
@@ -84,47 +108,60 @@ UPDATE_TOK (266) 34 35 36 37
 DELETE_TOK (267) 38 39
 GET_TOK (268) 40 41 42
 SPLIT_TOK (269) 16
-STR_LIT (270) 17 20 31 33 35 37
-CHAR_LIT (271) 25 26 30 32 34 36 39 42
-INT_TOK (272) 23 25 27 32 33 36 37 38 39 41 42
-DEC_TOK (273)
-AND_TOK (274)
-OR_TOK (275)
-BOL_TOK (276) 12
-EOL_TOK (277) 13
-FL_TOK (278) 14
-LL_TOK (279) 15
-BOF_TOK (280) 10
-EOF_TOK (281) 11
+INCR_TOK (270)
+DECR_TOK (271)
+IF_TOK (272)
+ELSE_TOK (273)
+SWITCH_TOK (274)
+CASE_TOK (275)
+DEFAULT_TOK (276)
+DO_TOK (277)
+WHILE_TOK (278)
+TIMES_TOK (279)
+MATH_OP (280)
+MOD_TOK (281)
+ID (282)
+STR_LIT (283) 17 20 31 33 35 37
+CHAR_LIT (284) 25 26 30 32 34 36 39 42
+INT_TOK (285) 23 25 27 32 33 36 37 38 39 41 42
+DEC_TOK (286)
+AND_TOK (287)
+OR_TOK (288)
+BOL_TOK (289) 12
+EOL_TOK (290) 13
+FL_TOK (291) 14
+LL_TOK (292) 15
+BOF_TOK (293) 10
+EOF_TOK (294) 11
 
 
 Nonterminals, with rules where they appear
 
-$accept (30)
+$accept (43)
     on left: 0
-line (31)
+line (44)
     on left: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16, on right: 0
-open_rule (32)
+open_rule (45)
     on left: 17, on right: 2
-close_rule (33)
+close_rule (46)
     on left: 18, on right: 3
-write_rule (34)
+write_rule (47)
     on left: 19 20, on right: 4
-move_rule (35)
+move_rule (48)
     on left: 21 22, on right: 5
-lr_rule (36)
+lr_rule (49)
     on left: 23 24 25 26, on right: 21
-ud_rule (37)
+ud_rule (50)
     on left: 27 28, on right: 22
-condition_list (38)
+condition_list (51)
     on left: 29, on right: 24 26 28
-insert_rule (39)
+insert_rule (52)
     on left: 30 31 32 33, on right: 6
-update_rule (40)
+update_rule (53)
     on left: 34 35 36 37, on right: 8
-delete_rule (41)
+delete_rule (54)
     on left: 38 39, on right: 7
-get_rule (42)
+get_rule (55)
     on left: 40 41 42, on right: 9
 
 
