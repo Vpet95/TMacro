@@ -2,6 +2,7 @@
 %{
 
 #include <string.h>
+#include "include/util.h"
 #include "include/tmacro_parser.tab.h"
 
 /* this defines the End of File token and behavior; without it, 
@@ -21,8 +22,8 @@
 SINGLE_LINE_COMMENT "//".*
 MULTI_LINE_COMMENT "/*".*"*/"
 
-STRING_LITERAL \".*\"
-CHARACTER_LITERAL '.*'
+STRING_LITERAL (\"[^"]*\")
+CHARACTER_LITERAL ('[^']*')
 
 OPEN_CMD  (?i:"open")
 CLOSE_CMD (?i:"close")
@@ -38,7 +39,6 @@ UPDATE_CMD (?i:"update")
 DELETE_CMD (?i:"delete")
 GET_CMD    (?i:"get")
 SPLIT_CMD  (?i:"split")
-MOD_CMD    (?i:"mod")
 INCR_CMD   (?i:"incr")
 DECR_CMD   (?i:"decr")
 IF_CMD	   (?i:"if")
@@ -61,9 +61,11 @@ OR_COND   (?i:"or")
 INTEGER_LITERAL [0-9]+
 DECIMAL_LITERAL [0-9]*(\.[0-9]+)
 
-PLACEHOLDER_STR "abc"
-
 %%
+
+"\n" |
+"\t" 
+" " { /* DO NOTHING */ }
 
 "[" |
 "]"	|
@@ -74,11 +76,12 @@ PLACEHOLDER_STR "abc"
 "-" |
 "*" |
 "/" |
+"%" |
 "^" { yylval.s = strdup(yytext); return MATH_OP; }
 
-{PLACEHOLDER_STR}   { return PLACEHOLDER; }
+"||" { return CONCAT_OP; }
 
-{STRING_LITERAL}    { yylval.s = strdup(yytext); return STR_LIT; }
+{STRING_LITERAL}    { printf("Found string literal: %s\n", yytext); yylval.s = strdup(yytext); return STR_LIT; }
 {CHARACTER_LITERAL} { yylval.s = strdup(yytext); return CHAR_LIT; }
 
 {INTEGER_LITERAL}   { yylval.i = strtoll(yytext, &yytext, 10); return INT_TOK; }
@@ -98,7 +101,6 @@ PLACEHOLDER_STR "abc"
 {DELETE_CMD} { return DELETE_TOK; }
 {GET_CMD}    { return GET_TOK; }
 {SPLIT_CMD}  { return SPLIT_TOK; }
-{MOD_CMD}    { return MOD_TOK; }
 {INCR_CMD}   { return INCR_TOK; }
 {DECR_CMD}   { return DECR_TOK; }
 {IF_CMD}	 { return IF_TOK; }
@@ -118,8 +120,6 @@ PLACEHOLDER_STR "abc"
 
 {GENERIC_IDENTIFIER} { yylval.s = strdup(yytext); return ID; }
 
-\n | 
-" " { /* DO NOTHING */ }
 
 {SINGLE_LINE_COMMENT} |
 {MULTI_LINE_COMMENT} { /* DO NOTHING */ }

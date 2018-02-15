@@ -69,7 +69,7 @@ extern int yydebug;
     WHILE_TOK = 278,
     TIMES_TOK = 279,
     MATH_OP = 280,
-    MOD_TOK = 281,
+    CONCAT_OP = 281,
     ID = 282,
     STR_LIT = 283,
     CHAR_LIT = 284,
@@ -91,7 +91,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 19 "tmacro_parser.y" /* yacc.c:1909  */
+#line 20 "tmacro_parser.y" /* yacc.c:1909  */
 
   char *s; 
   double d;

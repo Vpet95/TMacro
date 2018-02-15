@@ -7,6 +7,7 @@
 #include "include/vector.h"
 #include "include/hash_map.h"
 #include "include/util.h"
+#include "include/tinyexpr.h"
 #include "include/tmacro_core.h"
 
 int yylex();
@@ -30,7 +31,7 @@ void yyerror(const char *s);
 %token INSERT_TOK UPDATE_TOK DELETE_TOK GET_TOK SPLIT_TOK
 %token INCR_TOK DECR_TOK IF_TOK ELSE_TOK SWITCH_TOK CASE_TOK DEFAULT_TOK
 %token DO_TOK WHILE_TOK TIMES_TOK
-%token MATH_OP MOD_TOK
+%token MATH_OP CONCAT_OP
 %token ID
 %token STR_LIT CHAR_LIT
 %token INT_TOK DEC_TOK
@@ -39,8 +40,9 @@ void yyerror(const char *s);
 
 %type<s> PLACEHOLDER
 %type<s> open_rule close_rule write_rule lr_rule ud_rule move_rule condition_list
-%type<s> insert_rule update_rule delete_rule get_rule mod_rule
-%type<s> MATH_OP MOD_TOK
+%type<s> insert_rule update_rule delete_rule get_rule
+%type<s> var_assignment_rule incr_rule decr_rule 
+%type<s> MATH_OP CONCAT_OP
 %type<s> INCR_TOK DECR_TOK IF_TOK ELSE_TOK SWITCH_TOK CASE_TOK DEFAULT_TOK
 %type<s> DO_TOK WHILE_TOK TIMES_TOK
 %type<s> ID
@@ -49,6 +51,7 @@ void yyerror(const char *s);
 %type<s> AND_TOK OR_TOK
 %type<s> BOL_TOK EOL_TOK FL_TOK LL_TOK BOF_TOK EOF_TOK
 %type<s> INSERT_TOK UPDATE_TOK DELETE_TOK GET_TOK SPLIT_TOK
+%type<s> term expr end_term concat_rule concat_term end_concat_term
 
 %type<c> MOVE_LR_TOK MOVE_UD_TOK
 
@@ -65,6 +68,38 @@ line: /* empty line */
   | delete_rule { }
   | update_rule { }
   | get_rule { }
+  | var_assignment_rule { }
+  | incr_rule { }
+  | decr_rule { }
+  | DO_TOK '[' { set_print_or_execute(PRINT); }
+  | ']' INT_TOK TIMES_TOK { 
+      VECTOR *lines;
+      int n_lines;
+      int loop_idx = 0;
+      int line_idx = 0;
+      char *lc;
+
+      lc = get_loop_content();
+
+      set_print_or_execute(EXECUTE);
+
+      lines = tokenize(lc, '\n');
+      n_lines = vector_size(lines);
+
+      for(; loop_idx < $2; ++loop_idx) {
+        line_idx = 0;
+        for(; line_idx < n_lines; ++line_idx) {
+          YY_BUFFER_STATE buffer2;
+          char *line = vector_get(lines, line_idx);
+
+          buffer2 = yy_scan_string(line);
+          yyparse();
+
+          if(line_idx < n_lines - 1)
+            yy_delete_buffer(buffer2);
+        }
+      }
+  }
   | BOF_TOK { printf("Move to the beginning of file\n"); }
   | EOF_TOK { printf("Move to the end of file\n"); }
   | BOL_TOK { printf("Move to the beginning of line\n"); }
@@ -177,12 +212,121 @@ get_rule:
       printf("Return %lld token(s) delimited by %s\n", $3, $5);
   }
 
-mod_rule: 
-    MOD_TOK '[' INT_TOK ',' INT_TOK ']' {
-      printf("Calling modulus on %lld by %lld\n", $3, $5);
+var_assignment_rule: 
+    ID '=' INT_TOK {
+      /* assignment to a literal */
   }
-  | MOD_TOK '[' DEC_TOK ',' INT_TOK ']' {
-      printf("Calling modulus on %s by %lld\n", $3, $5);
+  | ID '=' DEC_TOK {
+
+  }
+  | ID '=' STR_LIT {
+
+  }
+  | ID '=' CHAR_LIT {
+
+  }
+  | ID '=' ID {
+      /* assignment to the value of another variable */
+  }
+  | ID '=' get_rule {
+      /* assignment to a value from the text buffer */
+  } 
+  | ID '=' expr {
+      /* eval expression, assign it here */
+  }
+  | ID '=' concat_rule {
+      /* set the variable to the concatenated string */
+  }
+
+expr: 
+  term MATH_OP end_term {
+      char *c = (char *)calloc(strlen($1) + 1 + strlen($3) + 4, sizeof(char));
+
+      strcat(c, $1);
+      strcat(c, " ");
+      strcat(c, $2);
+      strcat(c, " ");
+      strcat(c, $3);
+      strcat(c, " ");
+
+      free($1);
+      free($3);
+
+      $$ = c;
+  }
+
+end_term: 
+    expr { $$ = $1; }
+  | term { $$ = $1; }
+
+term: 
+    INT_TOK { 
+      char *c = (char *)calloc(15, sizeof(char));
+      sprintf(c, "%lld", $1);
+
+      $$ = c;
+  }
+  | DEC_TOK {
+      char *c = (char *)calloc(15, sizeof(char));
+      strcpy(c, $1);
+
+      $$ = c;
+  }
+  | ID {
+    
+    // grab value of variable, convert to string, return 
+  }
+
+concat_rule: 
+  concat_term CONCAT_OP end_concat_term {
+      char *c = (char *)calloc(strlen($1) + 2 + strlen($3), sizeof(char));
+      strcat(c, $1);
+      strcat(c, $3);
+
+      free($1);
+      free($3);
+
+      $$ = c;
+  }
+
+end_concat_term: 
+    concat_rule { $$ = $1; }
+  | concat_term { $$ = $1; }
+
+concat_term: 
+    STR_LIT { 
+      char *c = (char *)calloc(strlen($1) - 1, sizeof(char));
+      strncpy(c, &$1[1], strlen($1) - 2);
+
+      $$ = c;
+  }
+  | CHAR_LIT { 
+      char *c = (char *)calloc(2, sizeof(char));
+      c[0] = $1[1];
+
+      $$ = c;
+  }
+  | ID {
+    // grab value of variable, convert to string, return
+  }
+  | get_rule {
+    // grab data from the text buffer, and concatenate it in 
+  }
+
+incr_rule: 
+    INCR_TOK '[' ID ']' {
+
+  }
+  | INCR_TOK '[' ID ',' INT_TOK ']' {
+
+  }
+
+decr_rule: 
+    DECR_TOK '[' ID ']' {
+
+  }
+  | DECR_TOK '[' ID ',' INT_TOK ']' {
+
   }
 
 %%
@@ -233,10 +377,16 @@ int main(int argc, char **argv) {
 
     set_current_script_line_text(line);
     set_current_script_line_number(l_idx + 1);
-    buffer = yy_scan_string(line);
+
+    if(get_print_or_execute() == PRINT && line[0] != ']') {
+      add_loop_content(line);
+      add_loop_content("\n");
+    } else {
+      buffer = yy_scan_string(line);
     
-    yyparse();
-    yy_delete_buffer(buffer);
+      yyparse();
+      yy_delete_buffer(buffer);
+    } 
   }
 		
 	return 0;

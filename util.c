@@ -8,6 +8,8 @@
 #define TRUE 1
 #define FALSE 0
 
+static execution_type e_type = EXECUTE;
+
 VECTOR *tokenize(char *s, char c) {
 	VECTOR *ret = vector_create(1, 2, NULL, free);
 
@@ -78,4 +80,11 @@ unsigned long djb2(unsigned char *str) {
     return hash;
 }
 
+void set_print_or_execute(execution_type t) {
+	printf("Setting print or execute to: %d\n", t);
+	e_type = t;
+}
 
+execution_type get_print_or_execute() {
+	return e_type;
+}

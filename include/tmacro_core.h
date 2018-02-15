@@ -19,4 +19,10 @@ int get_current_script_line_number();
    TMacro script file for error reporting */
 void set_current_script_line_number(int);
 
+void add_loop_content(char *);
+
+char *get_loop_content();
+
+void clear_loop_content();
+
 #endif
