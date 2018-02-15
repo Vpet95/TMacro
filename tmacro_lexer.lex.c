@@ -943,7 +943,7 @@ case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
 #line 84 "tmacro_lexer.l"
-{ printf("Found string literal: %s\n", yytext); yylval.s = strdup(yytext); return STR_LIT; }
+{ yylval.s = strdup(yytext); return STR_LIT; }
 	YY_BREAK
 case 16:
 /* rule 16 can match eol */

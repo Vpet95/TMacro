@@ -67,6 +67,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 #include "tmacro_lexer.lex.c"
 #include "include/vector.h"
 #include "include/hash_map.h"
@@ -78,7 +79,7 @@ int yylex();
 void yyerror(const char *s);
 
 
-#line 82 "tmacro_parser.tab.c" /* yacc.c:339  */
+#line 83 "tmacro_parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -159,14 +160,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "tmacro_parser.y" /* yacc.c:355  */
+#line 21 "tmacro_parser.y" /* yacc.c:355  */
 
   char *s; 
   double d;
   long long i;
   char c;
 
-#line 170 "tmacro_parser.tab.c" /* yacc.c:355  */
+#line 171 "tmacro_parser.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -197,7 +198,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 201 "tmacro_parser.tab.c" /* yacc.c:358  */
+#line 202 "tmacro_parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -500,14 +501,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    62,    62,    63,    64,    65,    66,    67,    68,    69,
-      70,    71,    72,    73,    74,    75,   103,   104,   105,   106,
-     107,   108,   109,   112,   118,   124,   128,   134,   135,   138,
-     142,   146,   150,   156,   160,   166,   169,   172,   175,   178,
-     183,   186,   189,   192,   197,   200,   205,   208,   211,   216,
-     219,   222,   225,   228,   231,   234,   237,   242,   259,   260,
-     263,   269,   275,   281,   293,   294,   297,   303,   309,   312,
-     317,   320,   325,   328
+       0,    63,    63,    64,    65,    66,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,   104,   105,   106,   107,
+     108,   109,   110,   113,   121,   133,   136,   141,   142,   145,
+     151,   155,   159,   165,   171,   177,   180,   186,   193,   196,
+     201,   204,   207,   210,   215,   218,   223,   226,   229,   234,
+     237,   240,   243,   246,   249,   252,   255,   260,   277,   278,
+     281,   287,   293,   299,   311,   312,   315,   321,   327,   330,
+     335,   338,   343,   346
 };
 #endif
 
@@ -1462,79 +1463,79 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 63 "tmacro_parser.y" /* yacc.c:1646  */
+#line 64 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1468 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1469 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 64 "tmacro_parser.y" /* yacc.c:1646  */
+#line 65 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1474 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1475 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 65 "tmacro_parser.y" /* yacc.c:1646  */
+#line 66 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1480 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1481 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 66 "tmacro_parser.y" /* yacc.c:1646  */
+#line 67 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1486 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1487 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 67 "tmacro_parser.y" /* yacc.c:1646  */
+#line 68 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1492 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1493 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 68 "tmacro_parser.y" /* yacc.c:1646  */
+#line 69 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1498 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1499 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 69 "tmacro_parser.y" /* yacc.c:1646  */
+#line 70 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1504 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1505 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 70 "tmacro_parser.y" /* yacc.c:1646  */
+#line 71 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1510 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1511 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 71 "tmacro_parser.y" /* yacc.c:1646  */
+#line 72 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1516 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1517 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 72 "tmacro_parser.y" /* yacc.c:1646  */
+#line 73 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1522 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1523 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 73 "tmacro_parser.y" /* yacc.c:1646  */
+#line 74 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1528 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1529 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 74 "tmacro_parser.y" /* yacc.c:1646  */
+#line 75 "tmacro_parser.y" /* yacc.c:1646  */
     { set_print_or_execute(PRINT); }
-#line 1534 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1535 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 75 "tmacro_parser.y" /* yacc.c:1646  */
+#line 76 "tmacro_parser.y" /* yacc.c:1646  */
     { 
       VECTOR *lines;
       int n_lines;
@@ -1563,329 +1564,346 @@ yyreduce:
         }
       }
   }
-#line 1567 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1568 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 103 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Move to the beginning of file\n"); }
-#line 1573 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 104 "tmacro_parser.y" /* yacc.c:1646  */
+    { set_cursor(0, 0); }
+#line 1574 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 104 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Move to the end of file\n"); }
-#line 1579 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 105 "tmacro_parser.y" /* yacc.c:1646  */
+    { set_cursor(INT_MAX, INT_MAX); }
+#line 1580 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 105 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Move to the beginning of line\n"); }
-#line 1585 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 106 "tmacro_parser.y" /* yacc.c:1646  */
+    { set_col(0); }
+#line 1586 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 106 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Move to the end of line\n"); }
-#line 1591 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 107 "tmacro_parser.y" /* yacc.c:1646  */
+    { set_col(INT_MAX); }
+#line 1592 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 107 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Move to the first line\n"); }
-#line 1597 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 108 "tmacro_parser.y" /* yacc.c:1646  */
+    { set_row(0); }
+#line 1598 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 108 "tmacro_parser.y" /* yacc.c:1646  */
-    { printf("Move to the last line\n"); }
-#line 1603 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 109 "tmacro_parser.y" /* yacc.c:1646  */
+    { set_row(INT_MAX); }
+#line 1604 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 109 "tmacro_parser.y" /* yacc.c:1646  */
+#line 110 "tmacro_parser.y" /* yacc.c:1646  */
     { printf("Split the current line into two, moving the second half to the next line\n"); }
-#line 1609 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1610 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 112 "tmacro_parser.y" /* yacc.c:1646  */
+#line 113 "tmacro_parser.y" /* yacc.c:1646  */
     {
-    /* open a file */
-    printf("Open %s\n", (yyvsp[-1].s));
+	short success = open_input_file((yyvsp[-1].s));
+	
+	if(success) 
+	  read_input_file();
   }
-#line 1618 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1621 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 118 "tmacro_parser.y" /* yacc.c:1646  */
+#line 121 "tmacro_parser.y" /* yacc.c:1646  */
     {
-    /* close the opened file */
-    printf("Closing opened file\n");
-  }
-#line 1627 "tmacro_parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 25:
-#line 124 "tmacro_parser.y" /* yacc.c:1646  */
-    {
-      /* write to the opened file, or error out if none is opened */
-      printf("Writing to currently open file\n");
+	short success = close_input_file();
+	
+	if(!success) {
+	  if(!is_input_file_open())
+	    printf("ERR: unable to close file; no input file open\n");
+	  else 
+	    printf("ERR: unable to close file; unknown error has occurred\n");
+	}
   }
 #line 1636 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
-  case 26:
-#line 128 "tmacro_parser.y" /* yacc.c:1646  */
+  case 25:
+#line 133 "tmacro_parser.y" /* yacc.c:1646  */
     {
-      /* write to the given file, error out if not possible */
-      printf("Writing to file %s\n", (yyvsp[-1].s));
+      write_buffer_to_input_file();
   }
-#line 1645 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1644 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 26:
+#line 136 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      write_buffer_to_file((yyvsp[-1].s));
+  }
+#line 1652 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 134 "tmacro_parser.y" /* yacc.c:1646  */
+#line 141 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1651 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1658 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 135 "tmacro_parser.y" /* yacc.c:1646  */
+#line 142 "tmacro_parser.y" /* yacc.c:1646  */
     { }
-#line 1657 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1664 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 138 "tmacro_parser.y" /* yacc.c:1646  */
+#line 145 "tmacro_parser.y" /* yacc.c:1646  */
     {
-    /* move cursor LEFT or RIGHT INT_TOK spaces */
-    printf("Moving cursor %c %lld time(s)\n", (yyvsp[-3].c), (yyvsp[-1].i));
-  }
-#line 1666 "tmacro_parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 30:
-#line 142 "tmacro_parser.y" /* yacc.c:1646  */
-    {
-    /* move cursor until condition is met */
-    printf("Moving cursor %c until condition is met\n", (yyvsp[-3].c));
+      if((yyvsp[-3].c) == 'l' || (yyvsp[-3].c) == 'L')
+	    left((yyvsp[-1].i));
+	  else if((yyvsp[-3].c) == 'r' || (yyvsp[-3].c) == 'R')
+	    right((yyvsp[-1].i));
   }
 #line 1675 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
-  case 31:
-#line 146 "tmacro_parser.y" /* yacc.c:1646  */
+  case 30:
+#line 151 "tmacro_parser.y" /* yacc.c:1646  */
     {
-    /* move cursor left or right INT_TOK tokens delimited by CHAR_LIT */
-    printf("Moving cursor %c %lld token(s) delimited by %s\n", (yyvsp[-5].c), (yyvsp[-3].i), (yyvsp[-1].s));
+    /* move cursor until condition is met */
+    printf("Moving cursor %c until condition is met\n", (yyvsp[-3].c));
   }
 #line 1684 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
-  case 32:
-#line 150 "tmacro_parser.y" /* yacc.c:1646  */
+  case 31:
+#line 155 "tmacro_parser.y" /* yacc.c:1646  */
     {
-    /* move cursor left or right by token (delimited by CHAR_LIT) until condition is met */
-    printf("Moving cursor %c by token (delimited by %s) until condition is met\n", (yyvsp[-5].c), (yyvsp[-1].s));
+    /* move cursor left or right INT_TOK tokens delimited by CHAR_LIT */
+    printf("Moving cursor %c %lld token(s) delimited by %s\n", (yyvsp[-5].c), (yyvsp[-3].i), (yyvsp[-1].s));
   }
 #line 1693 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
-  case 33:
-#line 156 "tmacro_parser.y" /* yacc.c:1646  */
+  case 32:
+#line 159 "tmacro_parser.y" /* yacc.c:1646  */
     {
-      /* move cursor up or down INT_TOK times */
-      printf("Moving cursor %c %lld time(s)\n", (yyvsp[-3].c), (yyvsp[-1].i));
-    }
+    /* move cursor left or right by token (delimited by CHAR_LIT) until condition is met */
+    printf("Moving cursor %c by token (delimited by %s) until condition is met\n", (yyvsp[-5].c), (yyvsp[-1].s));
+  }
 #line 1702 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
+  case 33:
+#line 165 "tmacro_parser.y" /* yacc.c:1646  */
+    {
+      if((yyvsp[-3].c) == 'u' || (yyvsp[-3].c) == 'U')
+	    up((yyvsp[-1].i));
+	  else if((yyvsp[-3].c) == 'd' || (yyvsp[-3].c) == 'D')
+	    down((yyvsp[-1].i));
+    }
+#line 1713 "tmacro_parser.tab.c" /* yacc.c:1646  */
+    break;
+
   case 34:
-#line 160 "tmacro_parser.y" /* yacc.c:1646  */
+#line 171 "tmacro_parser.y" /* yacc.c:1646  */
     {
     /* move cursor up or down until condition is met */
     printf("Moving cursor %c until condition is met\n", (yyvsp[-3].c));
   }
-#line 1711 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1722 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 166 "tmacro_parser.y" /* yacc.c:1646  */
+#line 177 "tmacro_parser.y" /* yacc.c:1646  */
     { printf("Found condition list placeholder\n"); }
-#line 1717 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1728 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 169 "tmacro_parser.y" /* yacc.c:1646  */
+#line 180 "tmacro_parser.y" /* yacc.c:1646  */
     {
-      printf("Insert singular character %s\n", (yyvsp[-1].s));
+	  char in[2] = {0};
+	  in[0] = (yyvsp[-1].s)[1];
+	  
+      insert(in);
   }
-#line 1725 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1739 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 172 "tmacro_parser.y" /* yacc.c:1646  */
+#line 186 "tmacro_parser.y" /* yacc.c:1646  */
     {
-      printf("Insert string literal %s\n", (yyvsp[-1].s));
+      char *sub = (char *)malloc(sizeof(char) * strlen((yyvsp[-1].s)) - 1);
+	  strncpy(sub, &(yyvsp[-1].s)[1], strlen((yyvsp[-1].s)) - 2);
+	  
+	  insert(sub);
+	  free(sub);
   }
-#line 1733 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1751 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 175 "tmacro_parser.y" /* yacc.c:1646  */
+#line 193 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Insert character %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
   }
-#line 1741 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1759 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 178 "tmacro_parser.y" /* yacc.c:1646  */
+#line 196 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Insert string %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
   }
-#line 1749 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1767 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 183 "tmacro_parser.y" /* yacc.c:1646  */
+#line 201 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Update singular character %s\n", (yyvsp[-1].s));
   }
-#line 1757 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1775 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 186 "tmacro_parser.y" /* yacc.c:1646  */
+#line 204 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Update string literal %s\n", (yyvsp[-1].s));
   }
-#line 1765 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1783 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 189 "tmacro_parser.y" /* yacc.c:1646  */
+#line 207 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Update character %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
   }
-#line 1773 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1791 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 192 "tmacro_parser.y" /* yacc.c:1646  */
+#line 210 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Update string %s %lld times\n", (yyvsp[-3].s), (yyvsp[-1].i));
   }
-#line 1781 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1799 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 197 "tmacro_parser.y" /* yacc.c:1646  */
+#line 215 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Delete %lld character(s)\n", (yyvsp[-1].i));
   }
-#line 1789 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1807 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 200 "tmacro_parser.y" /* yacc.c:1646  */
+#line 218 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Delete %lld token(s) delimited by %s\n", (yyvsp[-3].i), (yyvsp[-1].s));
   }
-#line 1797 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1815 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 205 "tmacro_parser.y" /* yacc.c:1646  */
+#line 223 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Return a single character\n");
   }
-#line 1805 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1823 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 208 "tmacro_parser.y" /* yacc.c:1646  */
+#line 226 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Return %lld character(s)\n", (yyvsp[-1].i));
   }
-#line 1813 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1831 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 211 "tmacro_parser.y" /* yacc.c:1646  */
+#line 229 "tmacro_parser.y" /* yacc.c:1646  */
     {
       printf("Return %lld token(s) delimited by %s\n", (yyvsp[-3].i), (yyvsp[-1].s));
   }
-#line 1821 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1839 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 216 "tmacro_parser.y" /* yacc.c:1646  */
+#line 234 "tmacro_parser.y" /* yacc.c:1646  */
     {
       /* assignment to a literal */
   }
-#line 1829 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1847 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 219 "tmacro_parser.y" /* yacc.c:1646  */
+#line 237 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 1837 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1855 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 222 "tmacro_parser.y" /* yacc.c:1646  */
+#line 240 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 1845 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1863 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 225 "tmacro_parser.y" /* yacc.c:1646  */
+#line 243 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 1853 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1871 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 228 "tmacro_parser.y" /* yacc.c:1646  */
+#line 246 "tmacro_parser.y" /* yacc.c:1646  */
     {
       /* assignment to the value of another variable */
   }
-#line 1861 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1879 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 231 "tmacro_parser.y" /* yacc.c:1646  */
+#line 249 "tmacro_parser.y" /* yacc.c:1646  */
     {
       /* assignment to a value from the text buffer */
   }
-#line 1869 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1887 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 234 "tmacro_parser.y" /* yacc.c:1646  */
+#line 252 "tmacro_parser.y" /* yacc.c:1646  */
     {
       /* eval expression, assign it here */
   }
-#line 1877 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1895 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 237 "tmacro_parser.y" /* yacc.c:1646  */
+#line 255 "tmacro_parser.y" /* yacc.c:1646  */
     {
       /* set the variable to the concatenated string */
   }
-#line 1885 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1903 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 242 "tmacro_parser.y" /* yacc.c:1646  */
+#line 260 "tmacro_parser.y" /* yacc.c:1646  */
     {
       char *c = (char *)calloc(strlen((yyvsp[-2].s)) + 1 + strlen((yyvsp[0].s)) + 4, sizeof(char));
 
@@ -1901,54 +1919,54 @@ yyreduce:
 
       (yyval.s) = c;
   }
-#line 1905 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1923 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 259 "tmacro_parser.y" /* yacc.c:1646  */
+#line 277 "tmacro_parser.y" /* yacc.c:1646  */
     { (yyval.s) = (yyvsp[0].s); }
-#line 1911 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1929 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 260 "tmacro_parser.y" /* yacc.c:1646  */
+#line 278 "tmacro_parser.y" /* yacc.c:1646  */
     { (yyval.s) = (yyvsp[0].s); }
-#line 1917 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1935 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 263 "tmacro_parser.y" /* yacc.c:1646  */
+#line 281 "tmacro_parser.y" /* yacc.c:1646  */
     { 
       char *c = (char *)calloc(15, sizeof(char));
       sprintf(c, "%lld", (yyvsp[0].i));
 
       (yyval.s) = c;
   }
-#line 1928 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1946 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 269 "tmacro_parser.y" /* yacc.c:1646  */
+#line 287 "tmacro_parser.y" /* yacc.c:1646  */
     {
       char *c = (char *)calloc(15, sizeof(char));
       strcpy(c, (yyvsp[0].s));
 
       (yyval.s) = c;
   }
-#line 1939 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1957 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 275 "tmacro_parser.y" /* yacc.c:1646  */
+#line 293 "tmacro_parser.y" /* yacc.c:1646  */
     {
     
     // grab value of variable, convert to string, return 
   }
-#line 1948 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1966 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 281 "tmacro_parser.y" /* yacc.c:1646  */
+#line 299 "tmacro_parser.y" /* yacc.c:1646  */
     {
       char *c = (char *)calloc(strlen((yyvsp[-2].s)) + 2 + strlen((yyvsp[0].s)), sizeof(char));
       strcat(c, (yyvsp[-2].s));
@@ -1959,93 +1977,93 @@ yyreduce:
 
       (yyval.s) = c;
   }
-#line 1963 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1981 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 293 "tmacro_parser.y" /* yacc.c:1646  */
+#line 311 "tmacro_parser.y" /* yacc.c:1646  */
     { (yyval.s) = (yyvsp[0].s); }
-#line 1969 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1987 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 294 "tmacro_parser.y" /* yacc.c:1646  */
+#line 312 "tmacro_parser.y" /* yacc.c:1646  */
     { (yyval.s) = (yyvsp[0].s); }
-#line 1975 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 1993 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 297 "tmacro_parser.y" /* yacc.c:1646  */
+#line 315 "tmacro_parser.y" /* yacc.c:1646  */
     { 
       char *c = (char *)calloc(strlen((yyvsp[0].s)) - 1, sizeof(char));
       strncpy(c, &(yyvsp[0].s)[1], strlen((yyvsp[0].s)) - 2);
 
       (yyval.s) = c;
   }
-#line 1986 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2004 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 303 "tmacro_parser.y" /* yacc.c:1646  */
+#line 321 "tmacro_parser.y" /* yacc.c:1646  */
     { 
       char *c = (char *)calloc(2, sizeof(char));
       c[0] = (yyvsp[0].s)[1];
 
       (yyval.s) = c;
   }
-#line 1997 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2015 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 309 "tmacro_parser.y" /* yacc.c:1646  */
+#line 327 "tmacro_parser.y" /* yacc.c:1646  */
     {
     // grab value of variable, convert to string, return
   }
-#line 2005 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2023 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 312 "tmacro_parser.y" /* yacc.c:1646  */
+#line 330 "tmacro_parser.y" /* yacc.c:1646  */
     {
     // grab data from the text buffer, and concatenate it in 
   }
-#line 2013 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2031 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 317 "tmacro_parser.y" /* yacc.c:1646  */
+#line 335 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 2021 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2039 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 320 "tmacro_parser.y" /* yacc.c:1646  */
+#line 338 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 2029 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2047 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 325 "tmacro_parser.y" /* yacc.c:1646  */
+#line 343 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 2037 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2055 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 328 "tmacro_parser.y" /* yacc.c:1646  */
+#line 346 "tmacro_parser.y" /* yacc.c:1646  */
     {
 
   }
-#line 2045 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2063 "tmacro_parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2049 "tmacro_parser.tab.c" /* yacc.c:1646  */
+#line 2067 "tmacro_parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2280,7 +2298,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 332 "tmacro_parser.y" /* yacc.c:1906  */
+#line 350 "tmacro_parser.y" /* yacc.c:1906  */
 
 
 extern int yyparse();

@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 #include "tmacro_lexer.lex.c"
 #include "include/vector.h"
 #include "include/hash_map.h"
@@ -100,34 +101,40 @@ line: /* empty line */
         }
       }
   }
-  | BOF_TOK { printf("Move to the beginning of file\n"); }
-  | EOF_TOK { printf("Move to the end of file\n"); }
-  | BOL_TOK { printf("Move to the beginning of line\n"); }
-  | EOL_TOK { printf("Move to the end of line\n"); }
-  | FL_TOK { printf("Move to the first line\n"); }
-  | LL_TOK { printf("Move to the last line\n"); }
+  | BOF_TOK { set_cursor(0, 0); }
+  | EOF_TOK { set_cursor(INT_MAX, INT_MAX); }
+  | BOL_TOK { set_col(0); }
+  | EOL_TOK { set_col(INT_MAX); }
+  | FL_TOK { set_row(0); }
+  | LL_TOK { set_row(INT_MAX); }
   | SPLIT_TOK { printf("Split the current line into two, moving the second half to the next line\n"); }
 
 open_rule: 
   OPEN_TOK '[' STR_LIT ']' {
-    /* open a file */
-    printf("Open %s\n", $3);
+	short success = open_input_file($3);
+	
+	if(success) 
+	  read_input_file();
   }
 
 close_rule: 
   CLOSE_TOK {
-    /* close the opened file */
-    printf("Closing opened file\n");
+	short success = close_input_file();
+	
+	if(!success) {
+	  if(!is_input_file_open())
+	    printf("ERR: unable to close file; no input file open\n");
+	  else 
+	    printf("ERR: unable to close file; unknown error has occurred\n");
+	}
   }
  
 write_rule: 
     WRITE_TOK {
-      /* write to the opened file, or error out if none is opened */
-      printf("Writing to currently open file\n");
+      write_buffer_to_input_file();
   }
   | WRITE_TOK '[' STR_LIT ']' {
-      /* write to the given file, error out if not possible */
-      printf("Writing to file %s\n", $3);
+      write_buffer_to_file($3);
   }
 
 move_rule:
@@ -136,8 +143,10 @@ move_rule:
 
 lr_rule:
     MOVE_LR_TOK '[' INT_TOK ']' {
-    /* move cursor LEFT or RIGHT INT_TOK spaces */
-    printf("Moving cursor %c %lld time(s)\n", $1, $3);
+      if($1 == 'l' || $1 == 'L')
+	    left($3);
+	  else if($1 == 'r' || $1 == 'R')
+	    right($3);
   }
   | MOVE_LR_TOK '[' condition_list ']' {
     /* move cursor until condition is met */
@@ -154,8 +163,10 @@ lr_rule:
 
 ud_rule:
     MOVE_UD_TOK '[' INT_TOK ']' {
-      /* move cursor up or down INT_TOK times */
-      printf("Moving cursor %c %lld time(s)\n", $1, $3);
+      if($1 == 'u' || $1 == 'U')
+	    up($3);
+	  else if($1 == 'd' || $1 == 'D')
+	    down($3);
     }
   | MOVE_UD_TOK '[' condition_list ']' {
     /* move cursor up or down until condition is met */
@@ -167,10 +178,17 @@ condition_list:
 
 insert_rule: 
     INSERT_TOK '[' CHAR_LIT ']' {
-      printf("Insert singular character %s\n", $3);
+	  char in[2] = {0};
+	  in[0] = $3[1];
+	  
+      insert(in);
   }
   | INSERT_TOK '[' STR_LIT ']' {
-      printf("Insert string literal %s\n", $3);
+      char *sub = (char *)malloc(sizeof(char) * strlen($3) - 1);
+	  strncpy(sub, &$3[1], strlen($3) - 2);
+	  
+	  insert(sub);
+	  free(sub);
   }
   | INSERT_TOK '[' CHAR_LIT ',' INT_TOK ']' {
       printf("Insert character %s %lld times\n", $3, $5);

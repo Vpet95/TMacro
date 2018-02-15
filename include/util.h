@@ -14,12 +14,17 @@ typedef enum execution_type {
    vector of strings */
 VECTOR *tokenize(char *, char);
 
+/* the reverse of tokenize */
+char *join(VECTOR *, char *);
+
 /* Dan Bernstein's djb2 hash algorithm */
 unsigned long djb2(unsigned char *);
 
 void set_print_or_execute(execution_type);
 
 execution_type get_print_or_execute();
+
+
 
 
 #endif 

@@ -69,6 +69,32 @@ VECTOR *tokenize(char *s, char c) {
 	return ret; 
 }
 
+char *join(VECTOR *tokens, char *join_str) {
+	char *ret; 
+	unsigned int len = 0;
+	int t_idx = 0;
+	int t_len;
+	
+	if(tokens == NULL || join_str == NULL)
+		return NULL;
+	
+	t_len = vector_size(tokens);
+	
+	for(; t_idx < t_len; ++t_idx) {
+		len += strlen((char *)vector_get(tokens, t_idx)) + 1; // + 1 for join_char 
+	}
+	
+	ret = (char *)malloc(sizeof(char) * len + 1);
+	t_idx = 0;
+	
+	for(; t_idx < t_len; ++t_idx) {
+		strcat(ret, (char *)vector_get(tokens, t_idx));
+		strcat(ret, join_str);
+	}
+	
+	return ret;
+}
+
 /* Dan Bernstein's djb2 hash algorithm */
 unsigned long djb2(unsigned char *str) {
     unsigned long hash = 5381;
@@ -81,10 +107,30 @@ unsigned long djb2(unsigned char *str) {
 }
 
 void set_print_or_execute(execution_type t) {
-	printf("Setting print or execute to: %d\n", t);
 	e_type = t;
 }
 
 execution_type get_print_or_execute() {
 	return e_type;
 }
+
+// todo - implement this 
+/* void process_file_path(char *path) {
+	int p_idx = 0;
+	int p_len;
+	int s_count = 0;
+	
+	if(path == NULL)
+		return;
+	
+	p_len = strlen(path);
+	
+	for(; p_idx < p_len; ++p_idx) {
+		if(path[p_idx] == '\\')
+			s_count++;
+	}
+	
+	if(s_count > 0) {
+		path = (char *)realloc(path, strlen(path) + s_count + 1);
+	}
+} */

@@ -81,7 +81,7 @@ DECIMAL_LITERAL [0-9]*(\.[0-9]+)
 
 "||" { return CONCAT_OP; }
 
-{STRING_LITERAL}    { printf("Found string literal: %s\n", yytext); yylval.s = strdup(yytext); return STR_LIT; }
+{STRING_LITERAL}    { yylval.s = strdup(yytext); return STR_LIT; }
 {CHARACTER_LITERAL} { yylval.s = strdup(yytext); return CHAR_LIT; }
 
 {INTEGER_LITERAL}   { yylval.i = strtoll(yytext, &yytext, 10); return INT_TOK; }
